@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs')
 var jwt = require('jsonwebtoken');
 const axios = require('axios')
 const fetch = require('../middleware/fetchdetails');
-const jwtSecret = process.env.JWT_SECRET
+const jwtSecret = process.env.JWT_SECRET || "HaHa"
 // var foodItems= require('../index').foodData;
 // require("../index")
 //Creating a user and storing data to MongoDB Atlas, No Login Requiered
@@ -130,18 +130,18 @@ router.post('/getlocation', async (req, res) => {
 
     }
 })
+
+
+
 router.post('/foodData', async (req, res) => {
     try {
-        // console.log( JSON.stringify(global.foodData))
-        // const userId = req.user.id;
-        // await database.listCollections({name:"food_items"}).find({});
-        res.send([global.foodData, global.foodCategory])
+        // Send the global food data and categories
+        res.send([global.foodData, global.foodCategory]);
     } catch (error) {
-        console.error(error.message)
-        res.send("Server Error")
-
+        console.error(error.message);
+        res.status(500).send('Server Error');
     }
-})
+});
 
 router.post('/orderData', async (req, res) => {
     let data = req.body.order_data
