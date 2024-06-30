@@ -1,7 +1,6 @@
 
 require('dotenv').config();
-
-
+const cors = require('cors');
 
 global.foodData = require('./db')(function call(err, data, CatData) {
   // console.log(data)
@@ -13,14 +12,10 @@ global.foodData = require('./db')(function call(err, data, CatData) {
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 8001;
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", process.env.PRODUCTION_FRONTEND_URL);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+
+
+app.use(cors());
+
 app.use(express.json())
 
 app.get('/', (req, res) => {
